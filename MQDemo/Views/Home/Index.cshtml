@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "MQDemo";
+}
+<style>
+
+</style>
+<div class="jumbotron">
+    <h1>MQDemo</h1>
+    <p class="lead">消息队列（MQ）是一种应用程序对应用程序的通信方法。</p>
+    <p><a href="javascript:;" onclick="return Produce();" class="btn btn-primary btn-large">发送MQ &raquo;</a><em id="produce" class="bem"></em></p>
+    <p><a href="javascript:;" onclick="return Consume();" class="btn btn-primary btn-large">消费 &raquo;</a><em id="consume" class="bem"></em></p>
+</div>
+
+<script type="text/javascript">
+    function Produce()
+    {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Produce")",
+            dataType: "json",
+            success: function (data) {
+                if (data == 1) {
+                    $("#produce").html("发送成功");
+                }else{
+                    $("#produce").html("发送失败,请检查配置是否正确");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#produce").html("发送失败,请检查配置是否正确");
+            }
+        });
+    }
+
+    function Consume()
+    {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Consume")",
+            dataType: "json",
+        success: function (data) {
+            if (data == 1) {
+                $("#consume").html("消费成功");
+            }else{
+                $("#consume").html("消费失败,请检查配置是否正确");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $("#consume").html("消费失败,请检查配置是否正确");
+        }
+    });
+    }
+</script>
